@@ -45,7 +45,7 @@
 		//쿼리문을 실행하기 위한 객체
 		PreparedStatement pstmt = null;
 		
-		try {
+		try { 
 			
 			// forName 생성
 			Class.forName("com.mysql.cj.jdbc.Driver");	
@@ -62,7 +62,7 @@
 			
 			/*
 			
-			# prepareStatement
+			# prepareStatement(보안상의 이유로 복잡하게 연결)
 	
 			- 원래는 statement이었으나 SQL Injection 공격에 대응하는 보안 기법으로 prepareStatement를 사용한다.
 			- 먼저 ?로 쿼리문의 형식을 만들고 setter 메서드로 데이터를 대입하여 쿼리문을 완성한다.
