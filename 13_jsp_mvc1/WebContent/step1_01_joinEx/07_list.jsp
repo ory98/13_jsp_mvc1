@@ -56,16 +56,17 @@
 				
 					- 유지보수 및 가독성 향상을 위해서 컬럼명지정 방식을 권장한다.
 					- index가 1부터 시작되는 점을 유의해야 한다.
+					- 칼럼명이 긴 경우 사용 
 			
 			*/
 		
 			// 데이터베이스에서 select구문의 결과물의 1row가 있으면
 			while (rs.next()) {
 				
-				String id = rs.getString("ID");
-				String passwd = rs.getString("PASSWD");
-				String name = rs.getString("NAME");
-				Date joinDate = rs.getDate("JOIN_DATE");
+				String id 		= rs.getString("ID"); 		// rs.getString(1);
+				String passwd 	= rs.getString("PASSWD");	// rs.getString(2);
+				String name 	= rs.getString("NAME");		// rs.getString(3);
+				Date joinDate 	= rs.getDate("JOIN_DATE");	// rs.getDate(4);
 			
 	%>
 	
@@ -75,6 +76,7 @@
 					<td><%=name %></td>
 					<td><%=joinDate %></td>
 				</tr>
+				
 	<%	
 			}
 	%>
