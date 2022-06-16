@@ -13,14 +13,14 @@
 		if (id == null) { // 로그인 안했을 경우 보이는 화면
 	%>
 			<h1>JUST DO IT!</h1>
-			<p>Join!</p>
+			<p><a href="01_insert.jsp">Join!</a></p>
 			<p><a href="03_login.jsp">Login!</a></p>
 	<%		
 		}
 		else { // 로그인 후 보이는 화면 
 	%>			
 		<h1>Welcome! <%=id %></h1>	
-		<p>Logout!</p>
+		<p><a href="05_logout.jsp">Logout!</a></p>
 		<p>Delete!</p>
 		<p>Update!</p>	
 	<%		

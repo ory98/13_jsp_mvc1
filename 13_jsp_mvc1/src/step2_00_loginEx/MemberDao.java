@@ -36,7 +36,7 @@ public class MemberDao {
 		
 	}
 	
-	// login DAO (두가지 경우이기 때문에 boolean 사용)
+	// login DAO (두가지 경우이기 때문에 boolean 사용) - 로그인
 	public boolean login(String id , String passwd) {
 		
 		boolean isVaildMember = false; // 최종 결과는 거짓 
@@ -64,6 +64,36 @@ public class MemberDao {
 		
 	}
 	
-	
+	// Join DAO - 회원가입 
+	public boolean insertMember(MemberDto memberDto) { // boolean 설정 이유 :  가입한 아이디가 있을 경우 vs 없을 경우 두가지의 경우
+		
+		boolean isFirstMember = false; // 가입 불가능
+		
+		try {
+			
+			conn  = getConnection();
+			pstmt = conn.prepareStatement("SELECT * FROM MEMBER WHERE ID = ?");
+			pstmt.setString(1, memberDto.getId()); // 압축을 풀어서 맞는지 확인하기 
+			rs = pstmt.executeQuery();
+			
+			if (!rs.next()) { // 가입된 아이디가 없으면
+				pstmt = conn.prepareStatement("INSERT INTO MEMBER VALUES(?,?,?,NOW())");
+				pstmt.setString(1, memberDto.getId()); // 압축을 풀어서 넣어준다.
+				pstmt.setString(2, memberDto.getPasswd());
+				pstmt.setString(3, memberDto.getName());
+				pstmt.executeUpdate();
+				isFirstMember = true; // 가입가능
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {rs.close();} 	 catch (SQLException e) {e.printStackTrace();}
+			try {pstmt.close();} catch (SQLException e) {e.printStackTrace();}
+			try {conn.close();}  catch (SQLException e) {e.printStackTrace();}
+		}
+		
+		return isFirstMember;
+	}
 	
 }

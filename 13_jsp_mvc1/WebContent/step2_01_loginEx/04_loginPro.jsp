@@ -14,7 +14,7 @@
 		String id 	  = request.getParameter("id");
 		String passwd = request.getParameter("passwd");
 		
-		// DB 연동해서 로그인 여부 확인
+		// DB 연동해서 로그인 여부 확인 (자바에서 연동)
 		boolean isVaildMember = MemberDao.getIntance().login(id, passwd); // 1. 싱글턴은 new를 안쓰고 객체만 가져옴 2. 불리언 변수에 담아서 사용
 		
 		if (isVaildMember) {
@@ -35,12 +35,7 @@
 		</script>
 	<%	
 		}
-		
-	
-	
 	%>
-
-
 
 </body>
 </html>
