@@ -21,7 +21,7 @@ public class MemberDao {
 	private ResultSet rs 			= null; // SELECT가 있다.
 	
 	// 반환타입은 Connection객체이며, 메서드명은 관례적으로 getConnection으로 작성한다. 
-	public Connection getConnection() {
+	public Connection getConnection() { // DB와 연결해 주는 객체로  "conn  = getConnection();" 로 줄여서 사용하기 위해 작성한다.
 		
 		try {
 			
@@ -39,7 +39,7 @@ public class MemberDao {
 	// login DAO (두가지 경우이기 때문에 boolean 사용) - 로그인
 	public boolean login(String id , String passwd) {
 		
-		boolean isVaildMember = false; // 최종 결과는 거짓 
+		boolean isVaildMember = false; // 최종 결과는 거짓 , 유효한 아이디인지
 		
 		try {
 			
@@ -95,5 +95,74 @@ public class MemberDao {
 		
 		return isFirstMember;
 	}
+	
+	// delete DAO
+		public boolean deleteMember(MemberDto memberDto) {
+			
+			boolean isDeleteMember = false;
+			
+			try {
+				
+				conn = getConnection();
+				
+				pstmt = conn.prepareStatement("SELECT * FROM MEMBER WHERE ID = ? AND PASSWD = ?");
+				pstmt.setString(1, memberDto.getId());
+				pstmt.setString(2, memberDto.getPasswd());
+				rs = pstmt.executeQuery();
+				
+				if (rs.next()) {
+					pstmt = conn.prepareStatement("DELETE FROM MEMBER WHERE ID = ?");
+					pstmt.setString(1, memberDto.getId());
+					pstmt.executeUpdate();
+					isDeleteMember = true;
+				}
+				
+			} catch (Exception e) {
+				e.printStackTrace();
+			} finally {
+				try {rs.close();} catch (SQLException e) {e.printStackTrace();}
+				try {pstmt.close();} catch (SQLException e) {e.printStackTrace();}
+				try {conn.close();} catch (SQLException e) {e.printStackTrace();}
+			}
+			
+			return isDeleteMember;
+			
+		}
+		
+		
+		// Update DAO
+		public boolean updateMember(MemberDto memberDto) {
+			
+			boolean isUpdateMember = false;
+			
+			try {
+				
+				conn = getConnection();
+				pstmt = conn.prepareStatement("SELECT * FROM MEMBER WHERE ID = ? AND PASSWD = ?");
+				pstmt.setString(1, memberDto.getId());
+				pstmt.setString(2, memberDto.getPasswd());
+				rs = pstmt.executeQuery();
+				
+				if (rs.next()) {
+					pstmt = conn.prepareStatement("UPDATE MEMBER SET NAME = ? WHERE ID = ?");
+					pstmt.setString(1, memberDto.getName());
+					pstmt.setString(2, memberDto.getId());
+					pstmt.executeUpdate();
+					isUpdateMember = true;
+				}
+				
+			} catch (Exception e) {
+				e.printStackTrace();
+			} finally {
+				try {rs.close();}    catch (SQLException e) {e.printStackTrace();}
+				try {pstmt.close();} catch (SQLException e) {e.printStackTrace();}
+				try {conn.close();}  catch (SQLException e) {e.printStackTrace();}
+			}
+			
+			return isUpdateMember;
+			
+		}
+	
+	
 	
 }
