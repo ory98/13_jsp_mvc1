@@ -1,5 +1,7 @@
 package step3_00_boardEx;
 
+import java.util.Date;
+
 public class BoardDto {
 	
 	private int num;
@@ -7,7 +9,7 @@ public class BoardDto {
 	private String email;
 	private String subject;
 	private String password;
-	private String regDate;
+	private Date regDate;
 	private int readCount;
 	
 	
@@ -41,10 +43,10 @@ public class BoardDto {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	public String getRegDate() {
+	public Date getRegDate() {
 		return regDate;
 	}
-	public void setRegDate(String regDate) {
+	public void setRegDate(Date regDate) {
 		this.regDate = regDate;
 	}
 	public int getReadCount() {
