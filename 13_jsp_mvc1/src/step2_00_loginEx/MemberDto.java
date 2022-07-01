@@ -2,7 +2,7 @@ package step2_00_loginEx;
 
 import java.util.Date;
 
-// DTo (Date Transfer Object) : 데이터 전송 모델 객체 (압축파일 느낌)
+// Dto (Date Transfer Object) : 데이터 전송 모델 객체 (압축파일 느낌)
 public class MemberDto { // 테이블과 맞춰서 만들어야하는 규칙이 있다. 
 
 	private String id; // 테이블과 맞춰 변수의 속성을 맞춰준다. ****
